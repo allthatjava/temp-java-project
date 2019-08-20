@@ -2,33 +2,39 @@ package brian.temp.java.project;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * With Java 8
+ * 
+ * @author hyen.heo
+ *
+ */
 public class Search {
 
 	List<Employee> empList = Arrays.asList(new Employee[] {
-			new Employee("David","Don","123"),
+			new Employee("Daniel","Don","123"),
 			new Employee("cc","dd","aa"),
 			new Employee("wer","ew","fdsf"),
 			new Employee("sdf","sdf","vx"),
 			new Employee("David","Donners","321")}
 			);
 	
-	public Employee findByFirstName(String firstName)
-	{
-		return empList.stream().filter(e -> e.getFirstName().equals(firstName))
-			.findFirst().get();
-	}
-
-	public Employee findByName(String firstName, String lastName)
+	public List<Employee> findByFirstName(String firstName)
 	{
 		return empList.stream()
-				.filter(e -> e.getFirstName().equals(firstName)
-							&& e.getLastName().equals(lastName)
-						)
-				.findFirst().get();
+				.filter(e -> (firstName != null && e.getFirstName().indexOf(firstName) > -1))
+				.collect(Collectors.toList());
 	}
-	
-	
+
+	public List<Employee> findByFullName(String firstName, String lastName)
+	{
+		return empList.stream()
+				.filter(e -> (firstName != null && e.getFirstName().indexOf(firstName) > -1)
+								&& ( lastName != null && e.getLastName().indexOf(lastName) > -1)
+							)
+				.collect(Collectors.toList());
+	}
 	
 	class Employee{
 		String firstName;

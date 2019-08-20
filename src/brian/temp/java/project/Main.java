@@ -1,5 +1,7 @@
 package brian.temp.java.project;
 
+import java.util.List;
+
 import brian.temp.java.project.Search.Employee;
 
 public class Main {
@@ -33,14 +35,22 @@ public class Main {
 		System.out.println(s.pop());
 		try{System.out.println(s.pop());}catch(Exception e) {System.out.println(e.getMessage());}
 		
-		System.out.println("### Stack ########################################################");
+		System.out.println("### Search ########################################################");
 		Search se = new Search();
-		Employee e = se.findByFirstName("David");
-		Employee e2 = se.findByName("David", "Donners");
 		
-		System.out.println("First Name:"+e.getFirstName()+", Last Name:"+e.getLastName()+", Phone:"+e.getPhoneNumber());
-		System.out.println("First Name:"+e2.getFirstName()+", Last Name:"+e2.getLastName()+", Phone:"+e2.getPhoneNumber());
-		
+		System.out.println("--- 1st result ---");
+		List<Employee> firstNameSearchFound = se.findByFirstName("Da");
+		firstNameSearchFound.stream().forEach(
+					e1 -> System.out.println("Searched with 'Da' in First Name:"+e1.getFirstName()
+							+", Last Name:"+e1.getLastName()+", Phone:"+e1.getPhoneNumber()) 
+				);
+
+		System.out.println("--- 2nd result ---");
+		List<Employee> fullNameSearchFound = se.findByFullName("David", "Donners");
+		fullNameSearchFound.stream().forEach(
+				e2 -> System.out.println("Searched with 'David' and 'Donners' >>> First Name:"+e2.getFirstName()
+				+", Last Name:"+e2.getLastName()+", Phone:"+e2.getPhoneNumber())
+		);
 		
 	}
 }
